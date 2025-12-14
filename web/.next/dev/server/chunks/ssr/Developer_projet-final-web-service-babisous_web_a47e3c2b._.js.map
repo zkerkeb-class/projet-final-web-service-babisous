@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 10, "column": 0}, "map": {"version":3,"sources":["file:///Users/babi/Developer/projet-final-web-service-babisous/web/app/layout.js"],"sourcesContent":["import { AuthProvider } from \"@/context/AuthContext\";\nimport \"./globals.css\";\n\nexport const metadata = {\n  title: \"Arte - Application d'Authentification\",\n  description: \"Application Next.js avec authentification\",\n};\n\nexport default function RootLayout({ children }) {\n  return (\n    <html lang=\"fr\">\n      <body>\n        <AuthProvider>{children}</AuthProvider>\n      </body>\n    </html>\n  );\n}\n"],"names":[],"mappings":";;;;;;;AAAA;;;;AAGO,MAAM,WAAW;IACtB,OAAO;IACP,aAAa;AACf;AAEe,SAAS,WAAW,EAAE,QAAQ,EAAE;IAC7C,qBACE,mTAAC;QAAK,MAAK;kBACT,cAAA,mTAAC;sBACC,cAAA,mTAAC,2MAAY;0BAAE;;;;;;;;;;;;;;;;AAIvB"}},
+    {"offset": {"line": 51, "column": 0}, "map": {"version":3,"sources":["file:///Users/babi/Developer/projet-final-web-service-babisous/web/node_modules/next/src/server/route-modules/app-page/vendored/rsc/react-jsx-dev-runtime.ts"],"sourcesContent":["module.exports = (\n  require('../../module.compiled') as typeof import('../../module.compiled')\n).vendored['react-rsc']!.ReactJsxDevRuntime\n"],"names":["module","exports","require","vendored","ReactJsxDevRuntime"],"mappings":"AAAAA,OAAOC,OAAO,GACZC,QAAQ,4KACRC,QAAQ,CAAC,YAAY,CAAEC,kBAAkB","ignoreList":[0]}}]
+}

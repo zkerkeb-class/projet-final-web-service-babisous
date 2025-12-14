@@ -113,6 +113,26 @@ class AuthService {
       throw new Error("INVALID_TOKEN");
     }
   }
+
+  /**
+   * Récupère un utilisateur par son ID
+   * @param {string} userId - ID de l'utilisateur
+   * @returns {Promise<object>} L'utilisateur sans le mot de passe
+   */
+  async getUserById(userId) {
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    });
+
+    return user;
+  }
 }
 
 export default new AuthService();

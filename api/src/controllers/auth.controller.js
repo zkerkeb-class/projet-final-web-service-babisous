@@ -105,7 +105,7 @@ class AuthController {
   }
 
   /**
-   * Vérifie le token JWT de l'utilisateur
+   * Vérifie le token JWT de l'utilisateur et retourne ses infos complètes
    * GET /api/auth/me
    */
   async me(req, res) {
@@ -122,9 +122,19 @@ class AuthController {
       const token = authHeader.substring(7);
       const decoded = authService.verifyToken(token);
 
+      // Récupérer les informations complètes de l'utilisateur
+      const user = await authService.getUserById(decoded.userId);
+
+      if (!user) {
+        return res.status(404).json({
+          success: false,
+          error: "Utilisateur non trouvé",
+        });
+      }
+
       return res.status(200).json({
         success: true,
-        data: decoded,
+        data: user,
       });
     } catch (error) {
       console.error("Erreur lors de la vérification du token:", error);
