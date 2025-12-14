@@ -35,6 +35,7 @@ class ArtworkService {
             name: true,
           },
         },
+        anchor: true,
       },
     });
 
@@ -62,6 +63,7 @@ class ArtworkService {
               name: true,
             },
           },
+          anchor: true,
         },
         orderBy: {
           createdAt: "desc",
@@ -94,6 +96,7 @@ class ArtworkService {
             name: true,
           },
         },
+        anchor: true,
       },
     });
 
@@ -120,6 +123,7 @@ class ArtworkService {
             name: true,
           },
         },
+        anchor: true,
       },
       orderBy: {
         createdAt: "desc",
@@ -167,6 +171,7 @@ class ArtworkService {
             name: true,
           },
         },
+        anchor: true,
       },
     });
 

@@ -39,8 +39,8 @@ model Anchor {
   artworkId String   @unique @db.ObjectId
   latitude  Float
   longitude Float
-  altitude  Float
-  heading   Float
+  altitude  Float?
+  heading   Float?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
