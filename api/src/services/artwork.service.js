@@ -1,4 +1,5 @@
 import prisma from "../config/database.js";
+import r2Service from "./r2.service.js";
 
 class ArtworkService {
   /**
@@ -193,7 +194,20 @@ class ArtworkService {
       throw new Error("UNAUTHORIZED");
     }
 
-    // Supprimer l'œuvre
+    // Supprimer le fichier de R2 si l'URL existe
+    if (artwork.url) {
+      try {
+        const fileName = r2Service.extractFileNameFromUrl(artwork.url);
+        if (fileName) {
+          await r2Service.deleteFile(fileName);
+        }
+      } catch (error) {
+        console.error("Erreur lors de la suppression du fichier R2:", error);
+        // On continue même si la suppression du fichier échoue
+      }
+    }
+
+    // Supprimer l'œuvre de la base de données
     await prisma.artwork.delete({
       where: { id },
     });

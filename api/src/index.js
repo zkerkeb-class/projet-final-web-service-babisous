@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import authRoutes from "./routes/auth.routes.js";
 import userRoutes from "./routes/user.routes.js";
 import artworkRoutes from "./routes/artwork.routes.js";
+import uploadRoutes from "./routes/upload.routes.js";
 
 // Charger les variables d'environnement
 dotenv.config();
@@ -27,6 +28,7 @@ app.get("/", (req, res) => {
       auth: "/api/auth",
       users: "/api/users",
       artworks: "/api/artworks",
+      upload: "/api/upload",
     },
   });
 });
@@ -35,6 +37,7 @@ app.get("/", (req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/artworks", artworkRoutes);
+app.use("/api/upload", uploadRoutes);
 
 // Gestion des routes non trouvées
 app.use("*", (req, res) => {
