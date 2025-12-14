@@ -8,19 +8,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Users {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  email     String   @unique
+model User {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  email     String    @unique
   password  String
   name      String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 
   // Relations
-  artworks Artworks[]
+  artworks Artwork[]
 }
 
-model Artworks {
+model Artwork {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   title       String
   userId      String   @db.ObjectId
@@ -30,11 +30,11 @@ model Artworks {
   updatedAt   DateTime @updatedAt
 
   // Relations
-  user    Users    @relation(fields: [userId], references: [id])
-  anchors Anchors?
+  user   User    @relation(fields: [userId], references: [id])
+  anchor Anchor?
 }
 
-model Anchors {
+model Anchor {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   artworkId String   @unique @db.ObjectId
   latitude  Float
@@ -45,5 +45,5 @@ model Anchors {
   updatedAt DateTime @updatedAt
 
   // Relations
-  artwork Artworks @relation(fields: [artworkId], references: [id])
+  artwork Artwork @relation(fields: [artworkId], references: [id])
 }

@@ -7,7 +7,7 @@ import artworkService from "../services/artwork.service.js";
  */
 export const createArtwork = async (req, res) => {
   try {
-    const { title, description } = req.body;
+    const { title, description, url } = req.body;
     const userId = req.user.userId; // Ajouté par le middleware authenticate
 
     // Validation
@@ -18,7 +18,14 @@ export const createArtwork = async (req, res) => {
       });
     }
 
-    const artwork = await artworkService.create(userId, title, description);
+    if (!url) {
+      return res.status(400).json({
+        success: false,
+        error: "L'URL est requise",
+      });
+    }
+
+    const artwork = await artworkService.create(userId, title, description, url);
 
     return res.status(201).json({
       success: true,
@@ -130,12 +137,13 @@ export const getArtworksByUserId = async (req, res) => {
 export const updateArtwork = async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, description } = req.body;
+    const { title, description, url } = req.body;
     const userId = req.user.userId;
 
     const artwork = await artworkService.update(id, userId, {
       title,
       description,
+      url,
     });
 
     return res.status(200).json({

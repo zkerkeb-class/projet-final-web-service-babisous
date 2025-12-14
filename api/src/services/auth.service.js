@@ -15,7 +15,7 @@ class AuthService {
    */
   async register(email, password, name = null) {
     // Vérifier si l'utilisateur existe déjà
-    const existingUser = await prisma.users.findUnique({
+    const existingUser = await prisma.user.findUnique({
       where: { email },
     });
 
@@ -27,7 +27,7 @@ class AuthService {
     const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
 
     // Créer l'utilisateur
-    const user = await prisma.users.create({
+    const user = await prisma.user.create({
       data: {
         email,
         password: hashedPassword,
@@ -53,7 +53,7 @@ class AuthService {
    */
   async login(email, password) {
     // Trouver l'utilisateur
-    const user = await prisma.users.findUnique({
+    const user = await prisma.user.findUnique({
       where: { email },
     });
 

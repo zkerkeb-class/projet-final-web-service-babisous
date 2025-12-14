@@ -6,11 +6,12 @@ class ArtworkService {
    * @param {string} userId - ID de l'utilisateur
    * @param {string} title - Titre de l'œuvre
    * @param {string} description - Description de l'œuvre
+   * @param {string} url - URL de l'œuvre
    * @returns {Promise<object>}
    */
-  async create(userId, title, description) {
+  async create(userId, title, description, url) {
     // Vérifier que l'utilisateur existe
-    const user = await prisma.users.findUnique({
+    const user = await prisma.user.findUnique({
       where: { id: userId },
     });
 
@@ -18,10 +19,11 @@ class ArtworkService {
       throw new Error("USER_NOT_FOUND");
     }
 
-    const artwork = await prisma.artworks.create({
+    const artwork = await prisma.artwork.create({
       data: {
         title,
         description,
+        url,
         userId,
       },
       include: {
@@ -48,7 +50,7 @@ class ArtworkService {
     const skip = (page - 1) * limit;
 
     const [artworks, total] = await Promise.all([
-      prisma.artworks.findMany({
+      prisma.artwork.findMany({
         skip,
         take: limit,
         include: {
@@ -64,7 +66,7 @@ class ArtworkService {
           createdAt: "desc",
         },
       }),
-      prisma.artworks.count(),
+      prisma.artwork.count(),
     ]);
 
     return {
@@ -81,7 +83,7 @@ class ArtworkService {
    * @returns {Promise<object>}
    */
   async getById(id) {
-    const artwork = await prisma.artworks.findUnique({
+    const artwork = await prisma.artwork.findUnique({
       where: { id },
       include: {
         user: {
@@ -107,7 +109,7 @@ class ArtworkService {
    * @returns {Promise<object[]>}
    */
   async getByUserId(userId) {
-    const artworks = await prisma.artworks.findMany({
+    const artworks = await prisma.artwork.findMany({
       where: { userId },
       include: {
         user: {
@@ -135,7 +137,7 @@ class ArtworkService {
    */
   async update(id, userId, data) {
     // Vérifier que l'œuvre existe
-    const artwork = await prisma.artworks.findUnique({
+    const artwork = await prisma.artwork.findUnique({
       where: { id },
     });
 
@@ -149,11 +151,12 @@ class ArtworkService {
     }
 
     // Mettre à jour l'œuvre
-    const updatedArtwork = await prisma.artworks.update({
+    const updatedArtwork = await prisma.artwork.update({
       where: { id },
       data: {
         title: data.title,
         description: data.description,
+        url: data.url,
       },
       include: {
         user: {
@@ -177,7 +180,7 @@ class ArtworkService {
    */
   async delete(id, userId) {
     // Vérifier que l'œuvre existe
-    const artwork = await prisma.artworks.findUnique({
+    const artwork = await prisma.artwork.findUnique({
       where: { id },
     });
 
@@ -191,7 +194,7 @@ class ArtworkService {
     }
 
     // Supprimer l'œuvre
-    await prisma.artworks.delete({
+    await prisma.artwork.delete({
       where: { id },
     });
   }

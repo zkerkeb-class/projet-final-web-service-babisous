@@ -10,7 +10,7 @@ class UserService {
    * @returns {Promise<object>}
    */
   async getProfile(userId) {
-    const user = await prisma.users.findUnique({
+    const user = await prisma.user.findUnique({
       where: { id: userId },
       select: {
         id: true,
@@ -46,7 +46,7 @@ class UserService {
    * @returns {Promise<object>}
    */
   async updateProfile(userId, data) {
-    const user = await prisma.users.findUnique({
+    const user = await prisma.user.findUnique({
       where: { id: userId },
     });
 
@@ -61,7 +61,7 @@ class UserService {
     }
     if (data.email !== undefined) {
       // Vérifier si l'email n'est pas déjà utilisé
-      const existingUser = await prisma.users.findUnique({
+      const existingUser = await prisma.user.findUnique({
         where: { email: data.email },
       });
 
@@ -72,7 +72,7 @@ class UserService {
       updateData.email = data.email;
     }
 
-    const updatedUser = await prisma.users.update({
+    const updatedUser = await prisma.user.update({
       where: { id: userId },
       data: updateData,
       select: {
@@ -95,7 +95,7 @@ class UserService {
    * @returns {Promise<void>}
    */
   async changePassword(userId, currentPassword, newPassword) {
-    const user = await prisma.users.findUnique({
+    const user = await prisma.user.findUnique({
       where: { id: userId },
     });
 
@@ -114,7 +114,7 @@ class UserService {
     const hashedPassword = await bcrypt.hash(newPassword, SALT_ROUNDS);
 
     // Mettre à jour le mot de passe
-    await prisma.users.update({
+    await prisma.user.update({
       where: { id: userId },
       data: { password: hashedPassword },
     });
@@ -130,7 +130,7 @@ class UserService {
     const skip = (page - 1) * limit;
 
     const [users, total] = await Promise.all([
-      prisma.users.findMany({
+      prisma.user.findMany({
         skip,
         take: limit,
         select: {
@@ -146,7 +146,7 @@ class UserService {
           createdAt: "desc",
         },
       }),
-      prisma.users.count(),
+      prisma.user.count(),
     ]);
 
     return {
