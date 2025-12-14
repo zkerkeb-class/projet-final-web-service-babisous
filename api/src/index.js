@@ -1,13 +1,12 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import { PrismaClient } from "../generated/prisma/index.js";
+import authRoutes from "./routes/auth.routes.js";
+import userRoutes from "./routes/user.routes.js";
+import artworkRoutes from "./routes/artwork.routes.js";
 
 // Charger les variables d'environnement
 dotenv.config();
-
-// Initialiser Prisma (se connecte directement à MongoDB)
-const prisma = new PrismaClient();
 
 // Initialiser Express
 const app = express();
@@ -18,39 +17,44 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Routes
+// Route racine
 app.get("/", (req, res) => {
-  res.json({ message: "API is running!" });
+  res.json({
+    success: true,
+    message: "API Arte - Bienvenue !",
+    version: "1.0.0",
+    endpoints: {
+      auth: "/api/auth",
+      users: "/api/users",
+      artworks: "/api/artworks",
+    },
+  });
 });
 
-// Exemple de route pour tester Prisma
-app.get("/users", async (req, res) => {
-  try {
-    const users = await prisma.user.findMany();
-    res.json(users);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+// Routes API
+app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/artworks", artworkRoutes);
+
+// Gestion des routes non trouvées
+app.use("*", (req, res) => {
+  res.status(404).json({
+    success: false,
+    error: "Route non trouvée",
+  });
 });
 
-app.post("/users", async (req, res) => {
-  try {
-    const { email, name } = req.body;
-    const user = await prisma.user.create({
-      data: { email, name },
-    });
-    res.status(201).json(user);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+// Gestion globale des erreurs
+app.use((err, req, res, next) => {
+  console.error("Erreur serveur:", err);
+  res.status(500).json({
+    success: false,
+    error: "Erreur interne du serveur",
+  });
 });
 
 // Démarrer le serveur
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
-
-// Gérer la fermeture propre
-process.on("beforeExit", async () => {
-  await prisma.$disconnect();
+  console.log(`🚀 Serveur démarré sur http://localhost:${PORT}`);
+  console.log(`📚 Documentation API disponible sur http://localhost:${PORT}`);
 });

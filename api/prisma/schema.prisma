@@ -11,6 +11,7 @@ datasource db {
 model Users {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   email     String   @unique
+  password  String
   name      String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -24,10 +25,25 @@ model Artworks {
   title       String
   userId      String   @db.ObjectId
   description String?
+  url         String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   // Relations
-  user Users @relation(fields: [userId], references: [id])
+  user    Users    @relation(fields: [userId], references: [id])
+  anchors Anchors?
+}
 
+model Anchors {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  artworkId String   @unique @db.ObjectId
+  latitude  Float
+  longitude Float
+  altitude  Float
+  heading   Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  artwork Artworks @relation(fields: [artworkId], references: [id])
 }
