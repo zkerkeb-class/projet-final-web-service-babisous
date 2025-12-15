@@ -1,0 +1,161 @@
+/* [project]/Developer/projet-final-web-service-babisous/web/app/map/map.css [app-client] (css) */
+.map-container {
+  background: #f5f5f5;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+}
+
+.map-header {
+  background: #fff;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 20px;
+  box-shadow: 0 2px 4px #0000001a;
+}
+
+.map-header h1 {
+  color: #333;
+  margin: 0 0 8px;
+  font-size: 24px;
+}
+
+.map-info {
+  color: #666;
+  margin: 0;
+  font-size: 14px;
+}
+
+.map-wrapper {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.map-loading, .map-error {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 20px;
+  display: flex;
+}
+
+.map-loading p, .map-error p {
+  color: #666;
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+.retry-button {
+  color: #fff;
+  cursor: pointer;
+  background: #007bff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 16px;
+  transition: background .3s;
+}
+
+.retry-button:hover {
+  background: #0056b3;
+}
+
+.custom-marker {
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  position: relative;
+}
+
+.marker-pin {
+  background: #f44;
+  border-radius: 50% 50% 50% 0;
+  width: 30px;
+  height: 30px;
+  margin: -20px 0 0 -15px;
+  transition: all .3s;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: rotate(-45deg);
+  box-shadow: 0 2px 8px #0000004d;
+}
+
+.marker-pin:after {
+  content: "";
+  background: #fff;
+  border-radius: 50%;
+  width: 14px;
+  height: 14px;
+  margin: 8px 0 0 8px;
+  position: absolute;
+}
+
+.custom-marker:hover .marker-pin {
+  background: red;
+  transform: rotate(-45deg)scale(1.2);
+}
+
+.info-window {
+  max-width: 300px;
+  padding: 12px;
+}
+
+.info-window h3 {
+  color: #333;
+  margin: 0 0 8px;
+  font-size: 18px;
+}
+
+.artwork-description {
+  color: #666;
+  margin: 0 0 12px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.artwork-preview {
+  object-fit: cover;
+  border-radius: 4px;
+  width: 100%;
+  height: 150px;
+  margin-bottom: 12px;
+}
+
+.artwork-details {
+  border-top: 1px solid #e0e0e0;
+  padding-top: 12px;
+}
+
+.artwork-details p {
+  color: #666;
+  margin: 4px 0;
+  font-size: 13px;
+}
+
+.artwork-details strong {
+  color: #333;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .map-header {
+    padding: 15px;
+  }
+
+  .map-header h1 {
+    font-size: 20px;
+  }
+
+  .info-window {
+    max-width: 250px;
+  }
+
+  .artwork-preview {
+    height: 120px;
+  }
+}
+
+/*# sourceMappingURL=Developer_projet-final-web-service-babisous_web_app_map_map_9fedd21f.css.map*/

@@ -1,15 +1,10 @@
 {
-  "pages": {
-    "/_app": []
-  },
   "devFiles": [],
+  "ampDevFiles": [],
   "polyfillFiles": [
     "static/chunks/a9307_next_dist_build_polyfills_polyfill-nomodule.js"
   ],
-  "lowPriorityFiles": [
-    "static/development/_ssgManifest.js",
-    "static/development/_buildManifest.js"
-  ],
+  "lowPriorityFiles": [],
   "rootMainFiles": [
     "static/chunks/[turbopack]_browser_dev_hmr-client_hmr-client_ts_8013c8e6._.js",
     "static/chunks/a9307_next_dist_compiled_react-dom_0b5541eb._.js",
@@ -21,5 +16,7 @@
     "static/chunks/a9307_@swc_helpers_cjs_3641776b._.js",
     "static/chunks/Developer_projet-final-web-service-babisous_web_a0ff3932._.js",
     "static/chunks/turbopack-Developer_projet-final-web-service-babisous_web_de7571da._.js"
-  ]
+  ],
+  "pages": {},
+  "ampFirstPages": []
 }

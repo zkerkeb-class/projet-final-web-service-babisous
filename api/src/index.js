@@ -5,7 +5,7 @@ import authRoutes from "./routes/auth.routes.js";
 import userRoutes from "./routes/user.routes.js";
 import artworkRoutes from "./routes/artwork.routes.js";
 import uploadRoutes from "./routes/upload.routes.js";
-import anchorRoutes from "./routes/anchor.js";
+import anchorRoutes from "./routes/anchor.routes.js";
 
 // Charger les variables d'environnement
 dotenv.config();
